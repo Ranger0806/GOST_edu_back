@@ -1,11 +1,6 @@
 import os
-from django.conf import settings
-from django.db.models import Func, F, Q
-from django.db.models.fields.json import KeyTextTransform
-from django.shortcuts import get_object_or_404
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -81,7 +76,7 @@ class ApiGiminiQuestionsView(APIView):
             )
             prompt = f"Задай вопросы которые могут возьникнуть у комисии по этой презентации, важно чтобы вопросы были на русском языке, максимум {max_questions} соблюдай максимум по вопросам"
             response = client.models.generate_content(
-                model="gemini-1.5-flash",
+                model="gemini-2.0-flash",
                 contents=[sample_file, prompt])
             if temp_file_path:
                 os.remove(temp_file_path)
